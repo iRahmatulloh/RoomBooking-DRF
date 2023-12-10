@@ -92,6 +92,34 @@ class AmazonRoomView(APIView):
             return Response({"message": "Xona topilmadi yoki mavjud emas xona raqami kiritildi!"}, status=status.HTTP_404_NOT_FOUND)
 
 
+class NetflixRoomView(APIView):
+    def get(self, request, room_number):
+        try:
+            room = NetflixRoom.objects.get(room_number=room_number)
+            #
+            if room.is_booked:
+                serializer = RoomIsBookedSerializer(room)
+
+                msg = "Xona allaqachon boshqa bir mijoz tomonidan band qilingan!"
+                data = {
+                    "message": msg,
+                    "available_from": serializer.data.values()
+                }
+                return Response(data, status=status.HTTP_409_CONFLICT)
+            else:
+                serializer = RoomIsNotBookedSerializer(room)
+                print(serializer.data)
+                msg = "Xona band qilinmagan!"
+                data = {
+                    "message": msg,
+                    "room": serializer.data
+                }
+                return Response(data, status=status.HTTP_201_CREATED)
+
+        except NetflixRoom.DoesNotExist:
+            return Response({"message": "Xona topilmadi yoki mavjud emas xona raqami kiritildi!"}, status=status.HTTP_404_NOT_FOUND)
+
+
 
 
 def hello_world(request):
