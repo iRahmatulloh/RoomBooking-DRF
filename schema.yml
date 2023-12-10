@@ -1,0 +1,150 @@
+openapi: 3.0.3
+info:
+  title: Room Booking API
+  version: 1.0.0
+  description: Room Booking Api
+paths:
+  /api/amazon/{room_number}/:
+    get:
+      operationId: api_amazon_retrieve
+      parameters:
+      - in: path
+        name: room_number
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/facebook/{room_number}/:
+    get:
+      operationId: api_facebook_retrieve
+      parameters:
+      - in: path
+        name: room_number
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/google/{room_number}/:
+    get:
+      operationId: api_google_retrieve
+      parameters:
+      - in: path
+        name: room_number
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/hulu/{room_number}/:
+    get:
+      operationId: api_hulu_retrieve
+      parameters:
+      - in: path
+        name: room_number
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/netflix/{room_number}/:
+    get:
+      operationId: api_netflix_retrieve
+      parameters:
+      - in: path
+        name: room_number
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/rooms/:
+    get:
+      operationId: api_rooms_retrieve
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /search/:
+    get:
+      operationId: search_list
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - search
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoomIsBooked'
+          description: ''
+components:
+  schemas:
+    RoomIsBooked:
+      type: object
+      properties:
+        end_time:
+          type: string
+          format: date-time
+          nullable: true
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
