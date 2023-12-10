@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import hello_world, FacebookRoomView
+from . import views
 
 urlpatterns = [
-    path('api/', hello_world, name='home'),
-    path('api/facebook/<int:room_number>/', FacebookRoomView.as_view(), name='FaceBook-Room'),
+    path('api/', views.hello_world, name='home'),
+    path('api/facebook/<int:room_number>/', views.FacebookRoomView.as_view(), name='FaceBook-Room'),
+    path('api/google/<int:room_number>/', views.GoogleRoomView.as_view(), name='Google-Room'),
 ]
