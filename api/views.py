@@ -2,9 +2,10 @@ from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.utils import timezone
 
 from .models import FacebookRoom, GoogleRoom, AmazonRoom, HuluRoom, NetflixRoom
-from .serializers import RoomIsBookedSerializer, RoomIsNotBookedSerializer
+from .serializers import RoomIsBookedSerializer, RoomIsNotBookedSerializer, RoomListSerializer
 
 
 # Create your views here.
@@ -148,6 +149,30 @@ class HuluRoomView(APIView):
             return Response({"message": "Xona topilmadi yoki mavjud emas xona raqami kiritildi!"}, status=status.HTTP_404_NOT_FOUND)
 
 
+class AllRoomView(APIView):
+    def get(self, request):
+        facebook_rooms = FacebookRoom.objects.filter(is_booked=False)
+        google_rooms = GoogleRoom.objects.filter(is_booked=False)
+        amazon_rooms = AmazonRoom.objects.filter(is_booked=False)
+        netflix_rooms = NetflixRoom.objects.filter(is_booked=False)
+        hulu_rooms = HuluRoom.objects.filter(is_booked=False)
+
+        facebook_serializer = RoomListSerializer(facebook_rooms, many=True)
+        google_serializer = RoomListSerializer(google_rooms, many=True)
+        amazon_serializer = RoomListSerializer(amazon_rooms, many=True)
+        netflix_serializer = RoomListSerializer(netflix_rooms, many=True)
+        hulu_serializer = RoomListSerializer(hulu_rooms, many=True)
+
+        data = {
+            "facebook_rooms": facebook_serializer.data,
+            "google_rooms": google_serializer.data,
+            "amazon_rooms": amazon_serializer.data,
+            "netflix_rooms": netflix_serializer.data,
+            "hulu_rooms": hulu_serializer.data,
+            'today': timezone.now()
+        }
+
+        return Response(data)
 
 
 def hello_world(request):
