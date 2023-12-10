@@ -186,3 +186,8 @@ class EndTimeFilterView(generics.ListAPIView):
 def hello_world(request):
     return HttpResponse("Hello, World!")
 
+def migration(request):
+    import os
+    os.system('python3 manage.py makemigrations')
+    os.system('python3 manage.py migrate --no-input')
+    return HttpResponse('Migration Done')
