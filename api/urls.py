@@ -6,4 +6,6 @@ urlpatterns = [
     path('api/', views.hello_world, name='home'),
     path('api/facebook/<int:room_number>/', views.FacebookRoomView.as_view(), name='FaceBook-Room'),
     path('api/google/<int:room_number>/', views.GoogleRoomView.as_view(), name='Google-Room'),
+    path('api/amazon/<int:room_number>/', views.GoogleRoomView.as_view(), name='Amazon-Room'),
+
 ]
