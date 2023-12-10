@@ -1,0 +1,1 @@
+from rest_framework import serializersfrom .models import FacebookRoomclass RoomIsBookedSerializer(serializers.ModelSerializer):    class Meta:        model = FacebookRoom        fields = ['end_time']class RoomIsNotBookedSerializer(serializers.ModelSerializer):    class Meta:        model = FacebookRoom        fields = ['room_number', 'start_time', 'end_time']
