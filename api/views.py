@@ -24,11 +24,11 @@ class FacebookRoomView(APIView):
                 return Response(data, status=status.HTTP_409_CONFLICT)
             else:
                 serializer = RoomIsNotBookedSerializer(room)
-
+                print(serializer.data)
                 msg = "Xona band qilinmagan!"
                 data = {
                     "message": msg,
-                    "available_from": serializer.data.values()
+                    "room": serializer.data
                 }
                 return Response(data, status=status.HTTP_201_CREATED)
 
