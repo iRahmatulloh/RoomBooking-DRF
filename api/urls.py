@@ -8,5 +8,5 @@ urlpatterns = [
     path('api/google/<int:room_number>/', views.GoogleRoomView.as_view(), name='Google-Room'),
     path('api/amazon/<int:room_number>/', views.GoogleRoomView.as_view(), name='Amazon-Room'),
     path('api/netflix/<int:room_number>/', views.GoogleRoomView.as_view(), name='Netflix-Room'),
-
+    path('api/hulu/<int:room_number>/', views.GoogleRoomView.as_view(), name='Hulu-Room'),
 ]
