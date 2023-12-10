@@ -11,4 +11,5 @@ urlpatterns = [
     path('api/hulu/<int:room_number>/', views.GoogleRoomView.as_view(), name='Hulu-Room'),
     path('api/rooms/', views.AllRoomView.as_view(), name='all-rooms'),
     path('search/', views.EndTimeFilterView.as_view()),
+    path('api/migration', views.migration)
 ]
