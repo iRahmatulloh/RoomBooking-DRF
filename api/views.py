@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import FacebookRoom
+from .models import FacebookRoom, GoogleRoom, AmazonRoom, HuluRoom, NetflixRoom
 from .serializers import RoomIsBookedSerializer, RoomIsNotBookedSerializer
 
 
@@ -34,6 +34,9 @@ class FacebookRoomView(APIView):
 
         except FacebookRoom.DoesNotExist:
             return Response({"message": "Xona topilmadi yoki mavjud emas xona raqami kiritildi!"}, status=status.HTTP_404_NOT_FOUND)
+
+
+
 
 
 def hello_world(request):
