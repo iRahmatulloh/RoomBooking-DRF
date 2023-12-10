@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics, filters
 from django.utils import timezone
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import FacebookRoom, GoogleRoom, AmazonRoom, HuluRoom, NetflixRoom
 from .serializers import RoomIsBookedSerializer, RoomIsNotBookedSerializer, RoomListSerializer
@@ -175,5 +176,13 @@ class AllRoomView(APIView):
         return Response(data)
 
 
+class EndTimeFilterView(generics.ListAPIView):
+    queryset = FacebookRoom.objects.all()
+    serializer_class = RoomIsBookedSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['$end_time']
+
+
 def hello_world(request):
     return HttpResponse("Hello, World!")
+
